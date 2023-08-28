@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# cmake -S . -B bin/debug/
+sudo cmake --build bin/debug/ && bin/debug/SDL2_Template
