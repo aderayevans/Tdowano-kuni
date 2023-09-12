@@ -5,7 +5,7 @@
 
 #include <SDL_image.h>
 
-#include "vector2f.hpp"
+#include "Vector2f.hpp"
 
 class Entity
 {

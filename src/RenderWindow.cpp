@@ -1,12 +1,12 @@
-#include "renderwindow.hpp"
+#include "RenderWindow.hpp"
 
-RendererWindow::RendererWindow(const char* p_titles, int p_w, int p_h)
+RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
     : m_window(NULL), m_renderer(NULL)
 {
-    m_window = SDL_CreateWindow(p_titles,
+    m_window = SDL_CreateWindow(p_title,
                                 SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED,
-                                p_w, p_h, 0
+                                p_w, p_h, SDL_WINDOW_SHOWN
     );
 
     if (m_window == NULL)
@@ -18,12 +18,12 @@ RendererWindow::RendererWindow(const char* p_titles, int p_w, int p_h)
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 }
 
-void RendererWindow::destroy()
+void RenderWindow::destroy()
 {
     SDL_DestroyWindow(m_window);
 }
 
-SDL_Texture* RendererWindow::loadTexture(const char* p_filePath)
+SDL_Texture* RenderWindow::loadTexture(const char* p_filePath)
 {
     SDL_Texture* texture = NULL;
     texture = IMG_LoadTexture(m_renderer, p_filePath);
@@ -34,12 +34,12 @@ SDL_Texture* RendererWindow::loadTexture(const char* p_filePath)
     return texture;
 }
 
-void RendererWindow::clear()
+void RenderWindow::clear()
 {
     SDL_RenderClear(m_renderer);
 }
 
-void RendererWindow::render(Entity& p_entity)
+void RenderWindow::render(Entity& p_entity)
 {
     // SDL_Rect src(p_entity.getCurrentFrame());
 
@@ -52,12 +52,12 @@ void RendererWindow::render(Entity& p_entity)
     SDL_RenderCopy(m_renderer, p_entity.getTexture(), NULL, NULL);
 }
 
-void RendererWindow::present()
+void RenderWindow::present()
 {
     SDL_RenderPresent(m_renderer);
 }
 
-int RendererWindow::getRefreshRate()
+int RenderWindow::getRefreshRate()
 {
     int displayIndex = SDL_GetWindowDisplayIndex( m_window );
 
