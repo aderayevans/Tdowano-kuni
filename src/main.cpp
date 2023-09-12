@@ -7,33 +7,29 @@
 // for rendering images and graphics on screen
 #include <SDL_image.h>
 
-#include "renderwindow.hpp"
-#include "entity.hpp"
-#include "vector2f.hpp"
-#include "time.hpp"
+#include "RenderWindow.hpp"
+#include "Entity.hpp"
+#include "Vector2f.hpp"
+#include "Time.hpp"
+#include "GameEngine.hpp"
 
 const short WINDOW_WIDTH = 1920;
 const short WINDOW_HEIGHT = 1080;
-const char* WINDOW_TITLE = "SDL2 GAME";
+const char* WINDOW_TITLE = "Tdowanokuni";
 
 const char* IDLE_TEXTURE_PATH = "graphics/Samurai/Idle.png";
 const char* BACKGROUND_TEXTURE_PATH = "graphics/Wano/firstBg.png";
 
-bool init();
-
 int main(int argc, char **argv)
 {
-    if (!init()) {
-        return 0;
+    GameEngine gameEngine;
+    if (!gameEngine.init()) {
+        return 1;
     }
-    RendererWindow rendererWindow(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT);
+    RenderWindow renderWindow(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    SDL_Event event;
-
-    bool gameRunning = true;
-
-    SDL_Texture* texture = rendererWindow.loadTexture(IDLE_TEXTURE_PATH);
-    SDL_Texture* background_texture = rendererWindow.loadTexture(BACKGROUND_TEXTURE_PATH);
+    SDL_Texture* texture = renderWindow.loadTexture(IDLE_TEXTURE_PATH);
+    SDL_Texture* background_texture = renderWindow.loadTexture(BACKGROUND_TEXTURE_PATH);
 
     std::vector<Entity> entities = {
         Entity(Vector2f(0, 0), texture),
@@ -47,50 +43,28 @@ int main(int argc, char **argv)
     }
 
     Time time;
-    time.setRefreshRate(rendererWindow.getRefreshRate());
+    time.setRefreshRate(renderWindow.getRefreshRate());
 
-    while (gameRunning) 
+    while (gameEngine.isRunning()) 
     {
         time.startPerformanceCouter();
 
 	    // Event loop
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT)
-            {
-                gameRunning = false;
-            }
-        }
+        gameEngine.eventLoop();
 	    // Physics loop
 
 	    // Rendering loop
-        rendererWindow.clear();
+        renderWindow.clear();
         for (Entity& e : entities)
         {
-            rendererWindow.render(e);
+            renderWindow.render(e);
         }
-        rendererWindow.present();
+        renderWindow.present();
         time.cappingFrameRate();
     }
 
-    rendererWindow.destroy();
+    renderWindow.destroy();
     SDL_Quit();
 
     return 0;
-}
-
-bool init()
-{
-    bool return_value = true;
-    if (SDL_Init(SDL_INIT_VIDEO) > 0)
-    {
-        fprintf(stdin, "Error initializing SDL Video: %s\n", SDL_GetError());
-        return_value = false;
-    }
-    if (!IMG_Init(IMG_INIT_PNG))
-    {
-        fprintf(stdin, "Error initializing IMG_Init: %s\n", SDL_GetError());
-        return_value = false;
-    }
-    return return_value;
 }
