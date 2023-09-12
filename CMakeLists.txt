@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22.1) # 3.22.1 is shipping with ubuntu 22.04
-project(SDL2_Template VERSION 1.0)
+project(Tdowanokuni VERSION 1.0)
 
 # Make sure to add the CMAKE_CXX_STANDARD declarations above the call to add_executable()
 set(CMAKE_CXX_STANDARD 14)
@@ -37,6 +37,9 @@ FetchContent_MakeAvailable(SDL2_image)
 
 add_executable(${PROJECT_NAME} 
     src/main.cpp
+    src/renderwindow.cpp
+    src/entity.cpp
+    src/time.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
