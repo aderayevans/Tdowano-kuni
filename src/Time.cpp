@@ -17,7 +17,7 @@ void Time::cappingFrameRate()
 
     // 1,000 milliseconds / 60 frames per second = 16.6666666667 (millisecond per frame)
     m_maxElapsedPerFrame = 1000 / static_cast<double>(m_refreshRate);
-    fprintf(stdout, "Elapsed: %f, RefreshRate : %lf, FPS: %d\n", 1.0f / m_elapsed, m_maxElapsedPerFrame, m_refreshRate);
+    // fprintf(stdout, "Elapsed: %f, RefreshRate : %lf, FPS: %d\n", 1.0f / m_elapsed, m_maxElapsedPerFrame, m_refreshRate);
     if (m_elapsed < m_maxElapsedPerFrame)
     {
         SDL_Delay(floor(m_maxElapsedPerFrame - m_elapsed));
