@@ -2,11 +2,12 @@
 #define GAMEENGINE_HPP
 
 #include <iostream>
+#include <vector>
 
-// for initializing and shutdown functions
 #include <SDL.h>
-// for rendering images and graphics on screen
 #include <SDL_image.h>
+
+#include "RenderWindow.hpp"
 
 class GameEngine
 {
@@ -14,11 +15,19 @@ public:
     GameEngine();
 
     bool init();
-    void eventLoop();
+    void clean();
+    void update();
+    void render();
+    void handleEvents();
     bool isRunning();
+    inline RenderWindow& getRenderWindow() { return m_renderWindow; }
+
+public:
+    static SDL_Renderer* s_renderer;
 
 private:
     SDL_Event m_event;
+    RenderWindow m_renderWindow;
     bool m_running;
 };
 

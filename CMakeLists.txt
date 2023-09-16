@@ -38,9 +38,11 @@ FetchContent_MakeAvailable(SDL2_image)
 add_executable(${PROJECT_NAME} 
     src/main.cpp
     src/RenderWindow.cpp
-    src/Entity.cpp
+    src/GameObject.cpp
     src/Time.cpp
     src/GameEngine.cpp
+    src/TextureManager.cpp
+    src/Math/Vector2f.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

@@ -1,12 +1,16 @@
 #include "RenderWindow.hpp"
 
-RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
+RenderWindow::RenderWindow()
+    : m_window(NULL), m_renderer(NULL)
+{}
+
+RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h, SDL_WindowFlags p_flags)
     : m_window(NULL), m_renderer(NULL)
 {
     m_window = SDL_CreateWindow(p_title,
                                 SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED,
-                                p_w, p_h, SDL_WINDOW_SHOWN
+                                p_w, p_h, p_flags
     );
 
     if (m_window == NULL)
@@ -21,17 +25,7 @@ RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
 void RenderWindow::destroy()
 {
     SDL_DestroyWindow(m_window);
-}
-
-SDL_Texture* RenderWindow::loadTexture(const char* p_filePath)
-{
-    SDL_Texture* texture = NULL;
-    texture = IMG_LoadTexture(m_renderer, p_filePath);
-    if (texture == NULL)
-    {
-        fprintf(stdin, "Failed to load texture at %s: %s\n", p_filePath, SDL_GetError());
-    }
-    return texture;
+    SDL_DestroyRenderer(m_renderer);
 }
 
 void RenderWindow::clear()
@@ -39,21 +33,9 @@ void RenderWindow::clear()
     SDL_RenderClear(m_renderer);
 }
 
-void RenderWindow::render(Entity& p_entity)
-{
-    // SDL_Rect src(p_entity.getCurrentFrame());
-
-    // SDL_Rect dst;
-    // dst.x = p_entity.getPosition().x * 4;
-    // dst.y = p_entity.getPosition().y * 4;
-    // dst.w = p_entity.getCurrentFrame().w;
-    // dst.h = p_entity.getCurrentFrame().h;
-
-    SDL_RenderCopy(m_renderer, p_entity.getTexture(), NULL, NULL);
-}
-
 void RenderWindow::present()
 {
+    SDL_SetRenderDrawColor(m_renderer, 0, 255, 255, 255);
     SDL_RenderPresent(m_renderer);
 }
 

@@ -3,21 +3,28 @@
 
 #include <iostream>
 
-#include <SDL_image.h>
-
-#include "Entity.hpp"
+#include <SDL.h>
 
 class RenderWindow
 {
 public:
-    RenderWindow(const char* p_title, int p_w, int p_h);
-    
-    SDL_Texture* loadTexture(const char* p_filePath);
+    RenderWindow();
+    RenderWindow(const char* p_title, int p_w, int p_h, SDL_WindowFlags p_flags=SDL_WINDOW_FULLSCREEN);
+
+    /**
+     * @brief Destroy a window, destroy the rendering context for a window and free associated textures.
+     * 
+     */
     void destroy();
+
+    /**
+     * @brief Clear the current rendering target with the drawing color. This function clears the entire rendering target, ignoring the viewport and the clip rectangle.
+     * 
+     */
     void clear();
-    void render(Entity& p_entity);
     void present();
     int getRefreshRate();
+    inline SDL_Renderer* getRenderer() { return m_renderer; }
 
 private:
     SDL_Window* m_window;

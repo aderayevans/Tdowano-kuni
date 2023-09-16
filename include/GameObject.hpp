@@ -1,16 +1,20 @@
-#ifndef ENTITY_HPP
-#define ENTITY_HPP
+#ifndef GAMEOBJECT_HPP
+#define GAMEOBJECT_HPP
 
 #include <iostream>
 
-#include <SDL_image.h>
+#include <SDL.h>
 
-#include "Vector2f.hpp"
+#include "Math/Vector2f.hpp"
 
-class Entity
+class GameObject
 {
 public:
-    Entity(const Vector2f& p_pos, SDL_Texture* p_texture);
+    GameObject() = default;
+    GameObject(const char* p_filePath, const Vector2f& p_pos);
+
+    void update();
+    void render();
 
     inline void setPosition(const Vector2f& p_pos) { m_pos = p_pos; }
     inline void setTexture(SDL_Texture* p_texture) { m_texture = p_texture; }
@@ -23,6 +27,7 @@ private:
     Vector2f m_pos;
     SDL_Texture* m_texture;
     SDL_Rect m_currentFrame;
+    SDL_Rect m_updatedFrame;
 };
 
-#endif // ENTITY_HPP
+#endif // GAMEOBJECT_HPP

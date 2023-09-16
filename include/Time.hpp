@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-#include <SDL_image.h>
-// for using SDL_Delay() functions
 #include <SDL_timer.h>
 
 class Time
