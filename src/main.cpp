@@ -18,7 +18,6 @@ int main(int argc, char **argv)
     while (gameEngine.isRunning()) 
     {
         time.startPerformanceCouter();
-
         gameEngine.handleEvents();
         gameEngine.update();
         gameEngine.render();

@@ -1,4 +1,5 @@
 #include "GameEngine.hpp"
+
 #include "ECS/Components.hpp"
 
 const short WINDOW_WIDTH = 1920;
@@ -47,7 +48,7 @@ bool GameEngine::init()
     player.addComponent<SpriteComponent>(PLAYER_IDLE_TEXTURE_PATH, true);
     player.getComponent<SpriteComponent>().addAnimation("Idle", PLAYER_IDLE_TEXTURE_PATH, 4, 100);
     player.getComponent<SpriteComponent>().addAnimation("Run", PLAYER_RUN_TEXTURE_PATH, 5, 100);
-    player.getComponent<SpriteComponent>().addAnimation("Attack", PLAYER_ATTACK_TEXTURE_PATH, 2, 200);
+    player.getComponent<SpriteComponent>().addAnimation("Attack", PLAYER_ATTACK_TEXTURE_PATH, 2, 300);
     player.getComponent<SpriteComponent>().addAnimation("Jump", PLAYER_JUMP_TEXTURE_PATH, 5, 100);
     player.getComponent<SpriteComponent>().play("Idle");
     player.addComponent<KeyboardController>();
@@ -68,12 +69,12 @@ void GameEngine::handleEvents()
             }
             case SDL_KEYUP:
             {
-                player.getComponent<KeyboardController>().pressKey(m_event.key.keysym.sym);
+                player.getComponent<KeyboardController>().releaseKey(m_event.key.keysym.sym);
                 break;
             }
             case SDL_KEYDOWN:
             {
-                player.getComponent<KeyboardController>().releaseKey(m_event.key.keysym.sym);
+                player.getComponent<KeyboardController>().pressKey(m_event.key.keysym.sym);
                 switch (m_event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
