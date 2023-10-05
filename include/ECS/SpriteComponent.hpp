@@ -22,6 +22,7 @@ private:
 
     int m_width;
     int m_height;
+    int m_scale = 1;
 
     int m_animationIndex = 0;
 
@@ -78,8 +79,8 @@ public:
             m_srcRect.w = static_cast<int>(m_width / m_frames);
             m_animationIndex = static_cast<int>((SDL_GetTicks() / m_speed) % m_frames);
             m_srcRect.x = m_srcRect.w * m_animationIndex;
-            fprintf(stdout, "updating m_animationIndex %d\n", m_animationIndex);
-            fprintf(stdout, "updating m_srcRect.x %d\n", m_srcRect.x);
+            // fprintf(stdout, "updating m_animationIndex %d\n", m_animationIndex);
+            // fprintf(stdout, "updating m_srcRect.x %d\n", m_srcRect.x);
             m_srcRect.h = m_height;
             m_srcRect.y = 0;
         }
@@ -125,6 +126,10 @@ public:
             fprintf(stdout, "Invalid animation state, could not found (%s)\n", p_animation);
         }
     }
+
+    int getScale() const { return m_scale; }
+    int getWidth() const { return m_width; }
+    int getHeight() const { return m_height; }
 };
 
 #endif // SPRITE_COMPONENT_HPP
