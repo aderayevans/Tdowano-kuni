@@ -1,5 +1,6 @@
 #include "GameEngine.hpp"
 #include "ECS/Components.hpp"
+#include "Collision.hpp"
 
 const short WINDOW_WIDTH = 1920;
 const short WINDOW_HEIGHT = 1080;
@@ -42,6 +43,7 @@ bool GameEngine::init()
 
     ground.addComponent<TransformComponent>(0, 600);
     ground.addComponent<SpriteComponent>(GROUND_TEXTURE_PATH);
+    ground.addComponent<ColliderComponent>("ground");
 
     player.addComponent<TransformComponent>();
     player.addComponent<SpriteComponent>(PLAYER_IDLE_TEXTURE_PATH, true);
@@ -51,6 +53,7 @@ bool GameEngine::init()
     player.getComponent<SpriteComponent>().addAnimation("Jump", PLAYER_JUMP_TEXTURE_PATH, 5, 100);
     player.getComponent<SpriteComponent>().play("Idle");
     player.addComponent<KeyboardController>();
+    player.addComponent<ColliderComponent>("player");
 
     return return_value;
 }
@@ -111,6 +114,12 @@ void GameEngine::update()
 {
     manager.refresh();
     manager.update();
+
+    if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
+                        ground.getComponent<ColliderComponent>().collider))
+    {
+        fprintf(stdout, "Hit Ground!!!\n");
+    }
 }
 
 void GameEngine::render()
