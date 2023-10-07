@@ -43,6 +43,7 @@ add_executable(${PROJECT_NAME}
     src/GameEngine.cpp
     src/TextureManager.cpp
     src/Math/Vector2f.cpp
+    src/Collision.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
