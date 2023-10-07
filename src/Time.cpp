@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "Time.hpp"
 
 void Time::setRefreshRate(int p_refreshRate)
