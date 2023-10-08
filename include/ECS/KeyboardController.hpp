@@ -35,7 +35,7 @@ public:
 
         switch (m_eventType)
         {
-            case EventType::KEYUP:
+            case EventType::KEYDOWN:
             {
                 switch (m_keycode)
                 {
@@ -73,7 +73,7 @@ public:
                 }
                 break;
             }
-            case EventType::KEYDOWN:
+            case EventType::KEYUP:
             {
                 switch (m_keycode)
                 {
