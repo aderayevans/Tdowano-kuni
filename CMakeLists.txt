@@ -16,13 +16,14 @@ include(FetchContent)
 set(FETCHCONTENT_QUIET FALSE)
 
 FetchContent_Declare(
-    SDL2
+    SDL2main
     GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
     GIT_TAG release-2.26.3
     GIT_SHALLOW TRUE
     GIT_PROGRESS TRUE
+    OVERRIDE_FIND_PACKAGE
 )
-FetchContent_MakeAvailable(SDL2)
+FetchContent_MakeAvailable(SDL2main)
 
 FetchContent_Declare(
     SDL2_image
@@ -36,14 +37,14 @@ set(BUILD_SHARED_LIBS FALSE)
 FetchContent_MakeAvailable(SDL2_image)
 
 add_executable(${PROJECT_NAME} 
-    src/main.cpp
-    src/RenderWindow.cpp
-    src/GameObject.cpp
-    src/Time.cpp
-    src/GameEngine.cpp
-    src/TextureManager.cpp
-    src/Math/Vector2f.cpp
     src/Collision.cpp
+    src/GameEngine.cpp
+    src/GameObject.cpp
+    src/main.cpp
+    src/Math/Vector2f.cpp
+    src/RenderWindow.cpp
+    src/TextureManager.cpp
+    src/Time.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
